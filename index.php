@@ -6,6 +6,11 @@ include 'includes/db.php';
 include 'includes/userTable.php';
 include 'includes/transactionTable.php';
 
+
+//copyright notice
+echo "<!-- Copyright (c) 2067 Raf.corp. All rights reserved. -->";
+
+
 //Controleer of post is geset
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     // Gebruikersnaam en wachtwoord uit post halen
