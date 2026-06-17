@@ -7,7 +7,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 
-$id = $_GET['id'];
+// Oud kwetsbaarheid $id = $get['id'];
+$id = $_SESSION['user']['id'];
+
+//controleer of de gebruiker is ingelogd
+if (!isset($_SESSION['user']['id'])) {
+    header("location: index.php");
+    exit;
+}
 
 // Gebruikersgegevens ophalen
 $stmt = $pdo->prepare("SELECT * FROM user WHERE id = ?");
