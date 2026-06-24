@@ -76,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
             </div>
-
             <div class="mb-6">
                 <label for="password" class="block text-sm font-medium text-gray-700">Wachtwoord:</label>
                 <input
@@ -86,17 +85,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
             </div>
-
             <div class="mb-6">
                 <label for="passwordcheck" class="block text-sm font-medium text-gray-700">Herhaal wachtwoord:</label>
                 <input
                     type="password"
                     id="passwordcheck"
                     name="passwordcheck"
-                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                >
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
             </div>
-
             <div class="flex justify-center">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Registreren</button>
             </div>
