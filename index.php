@@ -6,32 +6,25 @@ include 'includes/db.php';
 include 'includes/userTable.php';
 include 'includes/transactionTable.php';
 
-
-//copyright notice
-echo "<!-- Copyright (c) 2067 Raf.corp. All rights reserved. -->";
-
-
 //Controleer of post is geset
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     // Gebruikersnaam en wachtwoord uit post halen
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // aangepaste versie
-    $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
-    $stmt->execute([$username, $password]);
-    $user = $stmt->fetch();
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
+$stmt->execute([$username]);
 
-    // Controleer of er een rij is gevonden
-    if($user) {
-        // Gebruiker is ingelogd
+$user = $stmt->fetch();
+
+if ($user && password_verify($password, $user['password'])) {
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
         $_SESSION['user'] = $user;
 
         header("location: dashboard.php");
+        exit;
     } else {
-        // Gebruiker is niet ingelogd
         $error = "Gebruikersnaam of wachtwoord is onjuist";
     }
 
@@ -70,8 +63,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="register.php" class="block text-center text-sm text-blue-600 hover:underline mt-4">Nog geen account? Registreer hier</a>
     </div>
 
-    <!-- debugbar weg halen -->
+    <div class="mt-4 p-2 border border-gray-300 rounded">
+        <label class="block text-sm font-medium text-gray-700">Uitgevoerde SQL-query:</label>
+        <textarea readonly class="mt-1 block w-full border rounded-md py-2 px-3 resize-none" rows="4"><? //als $sql bestaat geef $sql, anders geef aan dat deze nog niet is ingevuld
+        if(isset($sql)) {
+            echo $sql;
+        } else {
+            echo "Log in om je SQL query te zien";
+        }
+        ?></textarea>
+    </div>
 
-    
+
 </body>
 </html>

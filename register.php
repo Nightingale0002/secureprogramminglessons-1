@@ -7,20 +7,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $passwordcheck = $_POST['passwordcheck'];
 
-    if ($password == $passwordcheck) {
-        $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
-        $stmt->execute([$username]);
+    if (
+        strlen($password) < 8 ||
+        !preg_match('/[A-Z]/', $password) ||
+        !preg_match('/[a-z]/', $password) ||
+        !preg_match('/[0-9]/', $password)
+    ) {
+        $error = "Wachtwoord moet minimaal 8 tekens bevatten, inclusief hoofdletter, kleine letter en cijfer";
+    } elseif ($password != $passwordcheck) {
+        $error = "De wachtwoorden komen niet overeen";
+    } else {
+            $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
+            $stmt->execute([$username]);
+
         if ($stmt->rowCount() == 0) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
             $stmt = $pdo->prepare("INSERT INTO user (username, password, balance, isAdmin) VALUES (?, ?, 100, 0)");
-            $stmt->execute([$username, $password]);
+            $stmt->execute([$username, $hashedPassword]);
+
             $success = "Je account is aangemaakt, je kunt nu inloggen";
         } else {
             $error = "Deze gebruikersnaam is al in gebruik";
         }
-    } else {
-        $error = "De wachtwoorden komen niet overeen";
+
+
     }
-}
+    }
+
 
 ?>
 
