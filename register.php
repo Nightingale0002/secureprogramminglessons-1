@@ -3,7 +3,7 @@ session_start();
 include 'includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
+    $username = htmlspecialchars($_POST['username'] ?? '', ENT_QUOTES, 'UTF-8');
     $password = $_POST['password'] ?? '';
     $passwordcheck = $_POST['passwordcheck'] ?? '';
 
@@ -14,9 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         !preg_match('/[0-9]/', $password)
     ) {
         $error = 'Wachtwoord moet minimaal 8 tekens bevatten, inclusief hoofdletter, kleine letter en cijfer';
-    } elseif ($password !== $passwordcheck) {
-        $error = 'De wachtwoorden komen niet overeen';
-    } else {
+    } elseif ($password === $passwordcheck) {
         $stmt = $pdo->prepare('SELECT * FROM user WHERE username = ?');
         $stmt->execute([$username]);
 
@@ -30,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $error = 'Deze gebruikersnaam is al in gebruik';
         }
+    } else {
+        $error = 'De wachtwoorden komen niet overeen';
     }
 }
 ?>
@@ -55,14 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if (isset($error)): ?>
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <strong class="font-bold">Fout!</strong>
-                <span class="block sm:inline"><?php echo $error; ?></span>
+                <span class="block sm:inline"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></span>
             </div>
         <?php endif; ?>
 
         <?php if (isset($success)): ?>
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <strong class="font-bold">Gelukt!</strong>
-                <span class="block sm:inline"><?php echo $success; ?></span>
+                <span class="block sm:inline"><?php echo htmlspecialchars($success, ENT_QUOTES, 'UTF-8'); ?></span>
             </div>
         <?php endif; ?>
 

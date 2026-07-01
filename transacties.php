@@ -7,9 +7,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 
-$id = $_SESSION['user']['id'];
+$id = (int)($_GET['id'] ?? 0);
 
-if (!isset($_SESSION['user']['id'])) {
+if ($_SESSION['id'] != $id) {
     header('Location: index.php');
     exit;
 }

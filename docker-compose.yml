@@ -1,14 +1,14 @@
 services:
   web:
     build: .
-    platform: linux/arm64/v8
+    platform: linux/amd64
     ports:
       - "8000:80"
     volumes:
       - .:/var/www/html/
   db:
     image: mysql:latest
-    platform: linux/arm64/v8
+    platform: linux/amd64
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root

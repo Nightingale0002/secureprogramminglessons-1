@@ -1,8 +1,17 @@
-Made by Rafael de boer 
-class AUG25 
+# Secure Programming Lessons
 
+Deze repository bevat een educatieve webapplicatie voor webbeveiliging met een eenvoudige bank-achtige flow.
 
-## Toegang tot de Applicatie:
+## Wat is aangepast?
+- SQL-injectie is opgelost via voorbereide statements.
+- Wachtwoorden worden gehashd met PASSWORD_DEFAULT.
+- XSS-achtige output is afgevangen met htmlspecialchars.
+- Brute-force blokkering is toegevoegd voor het inlogformulier.
+- Transacties en toegang tot transacties zijn beter gecontroleerd.
 
-1. Open een webbrowser en ga naar [http://localhost:8000](http://localhost:8000) om de applicatie te bekijken.
-2. Om phpMyAdmin te gebruiken, ga naar [http://localhost:8080](http://localhost:808
+## Starten met Docker
+1. Zorg ervoor dat Docker op je systeem is geïnstalleerd.
+2. Open een terminal in de projectmap.
+3. Start de containers met: docker compose up --build
+4. Open de applicatie op http://localhost:8000
+5. phpMyAdmin is beschikbaar op http://localhost:8080
